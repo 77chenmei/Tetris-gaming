@@ -14,3 +14,8 @@ export interface IViewer {
      */
     hide():void
 }
+
+/**
+ * 形状
+ */
+export type Shape = Ipoint[]

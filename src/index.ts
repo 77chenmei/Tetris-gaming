@@ -1,26 +1,45 @@
-import { Square } from "./core/Square";
-import { IViewer } from "./core/types";
+
+import { SquarePageViewer } from "./viewer/SquarePageViewer";
+import $ from 'jquery'
+import { SquareGroup } from "./core/SquareGroup";
+import { TShape, LShape, LMirrorShape, SShape, SMirrorShape, SquareShape, LineShape, OneShape } from "./core/Teris";
+
+const group = new SquareGroup(OneShape,{x:3,y:2},'red')
+
+group.squares.forEach(el=>{
+    el.viewer = new SquarePageViewer(el,$('#root'))
+})
 
 
-class SquareConsloeViewer implements IViewer{
-    constructor(
-        private square:Square
-    ){}
-    show(): void {
-        console.log(this.square.point,this.square.color)
-    }    
-    hide(): void {
-        throw new Error("Method not implemented.");
+
+
+
+$('#btnDown').click(()=>{
+    group.centerPoint = {
+        x:group.centerPoint.x,
+        y:group.centerPoint.y + 1
     }
-}
+})
 
 
-const sq = new Square ({x:0,y:0},'red')
+$('#btnLeft').click(()=>{
+    group.centerPoint = {
+        x:group.centerPoint.x - 1,
+        y:group.centerPoint.y
+    }
+})
 
-sq.viewer = new SquareConsloeViewer(sq )
-sq.viewer.show()
-sq.point = {
-    x:34,
-    y:4
-}
 
+$('#btnRight').click(()=>{
+    group.centerPoint = {
+        x:group.centerPoint.x + 1,
+        y:group.centerPoint.y
+    }
+})
+
+$('#btnUp').click(()=>{
+    group.centerPoint = {
+        x:group.centerPoint.x,
+        y:group.centerPoint.y+1
+    }
+})
